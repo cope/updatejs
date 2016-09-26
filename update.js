@@ -36,17 +36,18 @@ if (!program.npm && !program.bower) {
 
 var update = {
 	bower: function () {
-		console.log('bower install');
+		console.log('Running bower install...');
 		cmd.get('bower install', function (bowerInstallResponse) {
-			console.log(bowerInstallResponse);
+			bowerInstallResponse && bowerInstallResponse.length > 0 && console.log(bowerInstallResponse);
 
-			console.log('bower update');
+			console.log('Running bower update...');
 			cmd.get('bower update', function (bowerUpdateResponse) {
-				console.log(bowerUpdateResponse);
+				bowerUpdateResponse && bowerUpdateResponse.length > 0 && console.log(bowerUpdateResponse);
 
-				console.log('bower prune');
+				console.log('Running bower prune...');
 				cmd.get('bower prune', function (bowerPruneResponse) {
-					console.log(bowerPruneResponse);
+					bowerPruneResponse && bowerPruneResponse.length > 0 && console.log(bowerPruneResponse);
+					console.log('Done.');
 				});
 			});
 		});
@@ -58,19 +59,23 @@ var update = {
 		} else {
 			var self = this;
 
-			console.log('npm install');
+			console.log('Running npm install...');
 			cmd.get('npm install', function (npmInstallResponse) {
-				console.log(npmInstallResponse);
+				npmInstallResponse && npmInstallResponse.length > 0 && console.log(npmInstallResponse);
 
-				console.log('npm update');
+				console.log('Running npm update...');
 				cmd.get('npm update', function (npmUpdateResponse) {
-					console.log(npmUpdateResponse);
+					npmUpdateResponse && npmUpdateResponse.length > 0 && console.log(npmUpdateResponse);
 
-					console.log('npm prune');
+					console.log('Running npm prune...');
 					cmd.get('npm prune', function (npmPruneResponse) {
-						console.log(npmPruneResponse);
+						npmPruneResponse && npmPruneResponse.length > 0 && console.log(npmPruneResponse);
 
-						program.bower && self.bower();
+						if (program.bower) {
+							self.bower();
+						} else {
+							console.log('Done.');
+						}
 					});
 				});
 			});
