@@ -6,7 +6,14 @@ Shortcut for running npm and bower install/update/prune calls.
     npm i -g updatejs
 
 #### Usage:
-    update
+    > update
+    Running npm install...
+    Running npm update...
+    Running npm prune...
+    Running bower install...
+    Running bower update...
+    Running bower prune...
+    Done.
 
 ##### Options:
     -h, --help        output usage information
@@ -16,3 +23,4 @@ Shortcut for running npm and bower install/update/prune calls.
     -b, --bower       Perform *only* bower install/update/prune calls
     
     -nb, <no params>  Perform both npm and bower install/update/prune calls
+
