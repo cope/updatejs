@@ -2,6 +2,10 @@
 
 Shortcut for running npm and bower install/update/prune calls.
 
+The script will check for package.json and bower.json before running install/update/prune calls.
+
+The script will recursively search for the location of bower.json in order to handle special "client" folders.
+
 #### Install:
     npm i -g updatejs
 
