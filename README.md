@@ -3,7 +3,7 @@
 Shortcut for running npm and bower install/update/prune calls.
 
 #### Install:
-...todo
+npm i -g updatejs
 
 #### Usage:
 update
