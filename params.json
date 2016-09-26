@@ -1,0 +1,6 @@
+{
+  "name": "Updatejs",
+  "tagline": "",
+  "body": "# updatejs\r\n\r\nShortcut for running npm and bower install/update/prune calls.\r\n\r\n#### Install:\r\n    npm i -g updatejs\r\n\r\n#### Usage:\r\n    > update\r\n    Running npm install...\r\n    Running npm update...\r\n    Running npm prune...\r\n    Running bower install...\r\n    Running bower update...\r\n    Running bower prune...\r\n    Done.\r\n\r\n##### Options:\r\n    -h, --help        output usage information\r\n    -V, --version     output the version number\r\n    \r\n    -n, --npm         Perform *only* npm install/update/prune calls\r\n    -b, --bower       Perform *only* bower install/update/prune calls\r\n    \r\n    -nb, <no params>  Perform both npm and bower install/update/prune calls",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
