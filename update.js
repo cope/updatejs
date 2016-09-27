@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 'use strict';
 
 /**
@@ -14,25 +15,25 @@
  * -nb, <no params>  Perform both npm and bower install/update/prune calls
  */
 
-var fs = require('fs'),
-	cmd = require('node-cmd'),
-	program = require('commander');
+var fs = require('fs');
+var cmd = require('node-cmd');
+var colors = require('colors');
+var program = require('commander');
 
 program
-.version('0.0.3')
-.option('', '')
-.option('-n, --npm', 'Perform *only* npm install/update/prune calls')
-.option('-b, --bower', 'Perform *only* bower install/update/prune calls')
-.option('', '')
-.option('-r, --recursive', 'Perform bower install/update/prune calls recursively')
-.option('', 'Does not work with the -n option')
-.option('', '')
-.option('-nb, <no params>', 'Perform both npm and bower install/update/prune calls')
-.parse(process.argv);
+	.version('0.0.3')
+	.option('', '')
+	.option('-n, --npm', 'Perform *only* npm install/update/prune calls', false)
+	.option('-b, --bower', 'Perform *only* bower install/update/prune calls', false)
+	.option('', '')
+	.option('-r, --recursive', 'Perform bower install/update/prune calls recursively')
+	.option('', 'Does not work with the -n option')
+	.option('', '')
+	.option('-nb, <no params>', 'Perform both npm and bower install/update/prune calls')
+	.parse(process.argv)
+;
 
-program.npm = program.npm || false;
-program.bower = program.bower || false;
-
+// If just `update` is executed, run npm and bower
 if (!program.npm && !program.bower) {
 	program.npm = true;
 	program.bower = true;
@@ -84,25 +85,25 @@ var update = {
 		if (this.bowerLocation) {
 			process.chdir(this.bowerLocation);
 
-			console.log('Running bower install...');
+			console.log('Running bower install...'.blue);
 			cmd.get('bower install', function (bowerInstallResponse) {
 				bowerInstallResponse && bowerInstallResponse.length > 0 && console.log(bowerInstallResponse);
 
-				console.log('Running bower update...');
+				console.log('Running bower update...'.blue);
 				cmd.get('bower update', function (bowerUpdateResponse) {
 					bowerUpdateResponse && bowerUpdateResponse.length > 0 && console.log(bowerUpdateResponse);
 
-					console.log('Running bower prune...');
+					console.log('Running bower prune...'.blue);
 					cmd.get('bower prune', function (bowerPruneResponse) {
 						bowerPruneResponse && bowerPruneResponse.length > 0 && console.log(bowerPruneResponse);
-						console.log('Done.');
+						console.log('Done.'.green);
 					});
 				});
 			});
 
 		} else {
-			console.log("No bower.json found, skipping bower calls.\n");
-			console.log('Done.');
+			console.log("\nNo bower.json found, skipping bower calls.\n".underline.yellow);
+			console.log('Done.'.green);
 		}
 	},
 	all: function () {
@@ -115,33 +116,33 @@ var update = {
 			var self = this;
 
 			if (true === this.hasPackageJSON) {
-				console.log('Running npm install...');
+				console.log('Running npm install...'.magenta);
 				cmd.get('npm install', function (npmInstallResponse) {
 					npmInstallResponse && npmInstallResponse.length > 0 && console.log(npmInstallResponse);
 
-					console.log('Running npm update...');
+					console.log('Running npm update...'.magenta);
 					cmd.get('npm update', function (npmUpdateResponse) {
 						npmUpdateResponse && npmUpdateResponse.length > 0 && console.log(npmUpdateResponse);
 
-						console.log('Running npm prune...');
+						console.log('Running npm prune...'.magenta);
 						cmd.get('npm prune', function (npmPruneResponse) {
 							npmPruneResponse && npmPruneResponse.length > 0 && console.log(npmPruneResponse);
 
 							if (program.bower) {
 								self.bower();
 							} else {
-								console.log('Done.');
+								console.log('Done.'.green);
 							}
 						});
 					});
 				});
 
 			} else {
-				console.log("No package.json found, skipping npm calls.\n");
+				console.log("No package.json found, skipping npm calls.\n".underline.yellow);
 				if (program.bower) {
 					self.bower();
 				} else {
-					console.log('Done.');
+					console.log('Done.'.green);
 				}
 			}
 		}

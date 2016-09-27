@@ -24,6 +24,7 @@
     "update": "update.js"
   },
   "dependencies": {
+    "colors": "^1.1.2",
     "commander": "^2.9.0",
     "node-cmd": "^1.1.1"
   }
