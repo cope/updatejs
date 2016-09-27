@@ -57,14 +57,16 @@ var update = {
 		}
 		return false;
 	},
+	isValidFolder: function (folder) {
+		return "node_modules" !== folder && "bower_components" !== folder;
+	},
 	findBower: function (path) {
-
 		var files = fs.readdirSync(path);
 		var file, id, x = 0, newName;
 		for (id in files) {
 			if (files.hasOwnProperty(id)) {
 				file = files[id];
-				if (fs.lstatSync(path + "/" + file).isDirectory()) {
+				if (fs.lstatSync(path + "/" + file).isDirectory() && this.isValidFolder(file)) {
 					if (this.checkBower(path + "/" + file)) {
 						this.bowerLocation = path + "/" + file;
 					} else {
