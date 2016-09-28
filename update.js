@@ -31,7 +31,7 @@ var Promise = require('bluebird');
 var commander = require('commander');
 
 commander
-.version('0.1.0')
+.version('0.1.1')
 .option('', '')
 .option('-n, --npm', 'Perform *only* npm calls', false)
 .option('-b, --bower', 'Perform *only* bower calls', false)
@@ -71,29 +71,6 @@ if (!commander.install && !commander.update && !commander.prune) {
 // console.log("commander.recursive: " + commander.recursive);
 
 var update = {
-
-	goto: function (location, command) {
-		process.chdir(location);
-		console.log(("For " + command + ", currently in: " + location).red);
-		return Promise.defer().resolve(true);
-	},
-
-	run: function (command, msg1, msg2) {
-		var deferred = Promise.defer();
-		console.log(msg1);
-		cmd.get(command, function (result) {
-			result && result.length > 0 && console.log(result);
-			console.log(msg2);
-			deferred.resolve(true);
-		});
-		return deferred.promise;
-	},
-
-	seq: function (promises) {
-		return Promise.map(promises, function (promiseFn) {
-			return promiseFn();
-		}, {concurrency: 1}); //it will run promises sequentially
-	},
 
 	check: function (path, file) {
 		try {
@@ -139,43 +116,44 @@ var update = {
 		return ret;
 	},
 
-	npm: function (location) {
-		var self = this;
-		var promises = [
-			function () {
-				return self.goto(location, "npm");
-			}
-		];
-		commander.install && promises.push(function () {
-			return self.run('npm install', 'Running npm install...'.magenta, '- npm install done.'.magenta);
-		});
-		commander.update && promises.push(function () {
-			return self.run('npm update', 'Running npm update...'.magenta, '- npm update done.'.magenta);
-		});
-		commander.prune && promises.push(function () {
-			return self.run('npm prune', 'Running npm prune...'.magenta, '- npm prune done.'.magenta);
-		});
-
-		return function () {
-			return self.seq(promises);
-		};
+	goto: function (location, command) {
+		process.chdir(location);
+		console.log(("For " + command + ", currently in: " + location).red);
+		return Promise.defer().resolve(true);
 	},
 
-	bower: function (location) {
+	seq: function (promises) {
+		return Promise.map(promises, function (promiseFn) {
+			return promiseFn();
+		}, {concurrency: 1}); //it will run promises sequentially
+	},
+
+	run: function (command, color) {
+		var deferred = Promise.defer();
+		console.log(color('Running ' + command + '...'));
+		cmd.get(command, function (result) {
+			result && result.length > 0 && console.log(result);
+			console.log(color('- ' + command + ' done.'));
+			deferred.resolve(true);
+		});
+		return deferred.promise;
+	},
+
+	build: function (location, command, color) {
 		var self = this;
 		var promises = [
 			function () {
-				return self.goto(location, "bower");
+				return self.goto(location, command);
 			}
 		];
 		commander.install && promises.push(function () {
-			return self.run('bower install', 'Running bower install...'.blue, '- bower install done.'.blue);
+			return self.run(command + ' install', color);
 		});
 		commander.update && promises.push(function () {
-			return self.run('bower update', 'Running bower update...'.blue, '- bower update done.'.blue);
+			return self.run(command + ' update', color);
 		});
 		commander.prune && promises.push(function () {
-			return self.run('bower prune', 'Running bower prune...'.blue, '- bower prune done.'.blue);
+			return self.run(command + ' prune', color);
 		});
 
 		return function () {
@@ -192,11 +170,10 @@ var update = {
 
 			if (!_.isEmpty(this.npmLocations)) {
 				_.forEach(this.npmLocations, function (location) {
-					npmPromises.push(self.npm(location));
+					npmPromises.push(self.build(location, 'npm', colors.magenta));
 				});
-
 			} else {
-				console.log("No package.json found, skipping npm calls.".underline.yellow);
+				console.log("No package.json found, skipping npm calls.".yellow);
 			}
 		}
 
@@ -206,11 +183,11 @@ var update = {
 
 			if (!_.isEmpty(this.bowerLocations)) {
 				_.forEach(this.bowerLocations, function (location) {
-					bowerPromises.push(self.bower(location));
+					bowerPromises.push(self.build(location, 'bower', colors.blue));
 				});
 
 			} else {
-				console.log("No bower.json found, skipping bower calls.".underline.yellow);
+				console.log("No bower.json found, skipping bower calls.".yellow);
 			}
 		}
 
