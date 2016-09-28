@@ -37,35 +37,74 @@
 
 <p>The script will recursively search for the location of bower.json in order to handle special "client" folders.</p>
 
-<h4>
-<a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install:</h4>
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install:</h2>
 
 <pre><code>npm i -g updatejs
 </code></pre>
 
-<h4>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage:</h4>
+<h2>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options:</h2>
+
+<pre><code>-h, --help       output usage information
+-V, --version    output the version number
+
+-n, --npm        Perform *only* npm calls
+-b, --bower      Perform *only* bower calls
+
+-i, --install    Perform *only* install calls
+-u, --update     Perform *only* update calls
+-p, --prune      Perform *only* prune calls
+
+-r, --recursive  Perform calls recursively in all subfolders
+                 WARNING: The more projects you have, the slower the update will be...
+
+&lt;no params&gt;      Same as using -nbiup:
+                 Performs all npm and bower install/update/prune calls
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage:</h2>
 
 <pre><code>&gt; update
+For npm, currently in: C:\GIT\yourproject
 Running npm install...
+- npm install done.
 Running npm update...
+- npm update done.
 Running npm prune...
+- npm prune done.
+For bower, currently in: C:\GIT\yourproject
 Running bower install...
+- bower install done.
 Running bower update...
+- bower update done.
 Running bower prune...
+- bower prune done.
 Done.
 </code></pre>
 
-<h5>
-<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options:</h5>
+<h3>
+<a id="additional-examples-only-install" class="anchor" href="#additional-examples-only-install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Additional examples: Only install</h3>
 
-<pre><code>-h, --help        output usage information
--V, --version     output the version number
+<pre><code>&gt; update -i
+For npm, currently in: C:\GIT\yourproject
+Running npm install...
+- npm install done.
+For bower, currently in: C:\GIT\yourproject
+Running bower install...
+- bower install done.
+Done.
+</code></pre>
 
--n, --npm         Perform *only* npm install/update/prune calls
--b, --bower       Perform *only* bower install/update/prune calls
+<h3>
+<a id="additional-examples-only-npm-install" class="anchor" href="#additional-examples-only-npm-install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Additional examples: Only npm install</h3>
 
--nb, &lt;no params&gt;  Perform both npm and bower install/update/prune calls
+<pre><code>&gt; update -ni
+For npm, currently in: C:\GIT\yourproject
+Running npm install...
+- npm install done.
+Done.
 </code></pre>
       </section>
       <footer>
