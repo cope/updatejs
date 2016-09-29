@@ -21,11 +21,17 @@ The script will recursively search for the location of bower.json in order to ha
     -p, --prune      Perform *only* prune calls
 
     -r, --recursive  Perform calls recursively in all subfolders
-                     WARNING: The more projects you have, the slower the update will be...
+                     WARNING: The more projects you have, the longer it will take.
+    
+    -P, --parallel   Perform npm and bower calls in parallel, not consecutively
+                     WARNING: The output will happen in real time, all mixed up.
+    -I, --instant    Instant output for the parallel execution
+                     WARNING: The output will happen only at the end:
+                     - once for all npm calls, and once for all bower calls.
 
     <no params>      Same as using -nbiup:
                      Performs all npm and bower install/update/prune calls
-
+ 
 ## Usage:
     > update
     For npm, currently in: C:\GIT\yourproject

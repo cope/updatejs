@@ -17,10 +17,16 @@
  * -p, --prune       Perform *only* prune calls
  *
  * -r, --recursive   Perform calls recursively in all subfolders
- *                   WARNING: The more projects you have, the slower the update will be...
+ *                   WARNING: The more projects you have, the longer it will take.
+ *
+ * -P, --parallel    Perform npm and bower calls in parallel, not consecutively
+ *                   WARNING: The output will happen in real time, all mixed up.
+ * -I, --instant     Instant output for the parallel execution
+ *                   WARNING: The output will happen only at the end:
+ *                   - once for all npm calls, and once for all bower calls.
  *
  * <no params>       Same as using -nbiup:
- *                   Performs all npm and bower install/update/prune calls
+ *                   Performs all npm and bower install/update/prune calls in local project
  */
 
 var fs = require("fs");
@@ -29,9 +35,11 @@ var cmd = require('node-cmd');
 var colors = require('colors');
 var Promise = require('bluebird');
 var commander = require('commander');
+var exec = require('child_process').exec;
+var spawn = require('child_process').spawn;
 
 commander
-.version('0.1.1')
+.version('0.2.0')
 .option('', '')
 .option('-n, --npm', 'Perform *only* npm calls', false)
 .option('-b, --bower', 'Perform *only* bower calls', false)
@@ -41,10 +49,16 @@ commander
 .option('-p, --prune', 'Perform *only* prune calls', false)
 .option('', '')
 .option('-r, --recursive', 'Perform calls recursively in all subfolders', false)
-.option('', 'WARNING: The more projects you have, the slower the update will be...')
+.option('', 'WARNING: The more projects you have, the longer it will take.')
+.option('', '')
+.option('-P, --parallel', 'Perform npm and bower calls in parallel, not consecutively', false)
+.option('', 'WARNING: The output will happen in real time, all mixed up.')
+.option('-I, --instant', 'Instant output for the parallel execution', false)
+.option('', 'WARNING: The output will happen only at the end:')
+.option('', '- once for all npm calls, and once for all bower calls.')
 .option('', '')
 .option('<no params>', 'Same as using -nbiup:')
-.option('', 'Performs all npm and bower install/update/prune calls')
+.option('', 'Performs all npm and bower install/update/prune calls in local project')
 .parse(process.argv);
 
 commander.npm = true === commander.npm;
@@ -53,6 +67,8 @@ commander.install = true === commander.install;
 commander.update = true === commander.update;
 commander.prune = true === commander.prune;
 commander.recursive = true === commander.recursive;
+commander.parallel = true === commander.parallel;
+commander.instant = true === commander.instant;
 
 // If just `update` is executed, run both npm and bower, and run all three iup calls
 if (!commander.npm && !commander.bower) {
@@ -60,6 +76,10 @@ if (!commander.npm && !commander.bower) {
 }
 if (!commander.install && !commander.update && !commander.prune) {
 	commander.install = commander.update = commander.prune = true;
+}
+if (commander.parallel && (commander.npm !== commander.bower)) {
+	console.log(("Ignoring -P (--paralle) because you only selected " + (commander.npm ? "npm" : "bower") + ".").red);
+	commander.parallel = false;
 }
 
 // commander debug:
@@ -69,6 +89,8 @@ if (!commander.install && !commander.update && !commander.prune) {
 // console.log("commander.update: " + commander.update);
 // console.log("commander.prune: " + commander.prune);
 // console.log("commander.recursive: " + commander.recursive);
+// console.log("commander.parallel: " + commander.parallel);
+// console.log("commander.instant: " + commander.instant);
 
 var update = {
 
@@ -161,9 +183,17 @@ var update = {
 		};
 	},
 
+	params: function () {
+		return (commander.install ? "i" : "") +
+			(commander.update ? "u" : "" ) +
+			(commander.prune ? "p" : "" ) +
+			(commander.recursive ? "r" : "");
+	},
+
 	all: function () {
 		var self = this;
 
+		// Build lists of promises for npm:
 		var npmPromises = [];
 		if (commander.npm) {
 			this.npmLocations = this.find(process.cwd(), 'package.json', true);
@@ -177,6 +207,7 @@ var update = {
 			}
 		}
 
+		// Build lists of promises for bower:
 		var bowerPromises = [];
 		if (commander.bower) {
 			this.bowerLocations = this.find(process.cwd(), 'bower.json');
@@ -191,10 +222,55 @@ var update = {
 			}
 		}
 
-		var promises = _.concat(npmPromises, bowerPromises);
-		self.seq(promises).then(function (res) {
-			console.log('Done.'.green);
-		});
+		// Parallel processing:
+		if (commander.parallel) {
+			var params = this.params();
+
+			// Instant output for parallel processing:
+			if (commander.instant) {
+				console.log("Running all npm calls...".magenta);
+				exec('update -n' + params, function (error, stdout, stderr) {
+					console.log(stdout.magenta);
+				});
+
+				console.log("Running all bower calls...".blue);
+				exec('update -b' + params, function (error, stdout, stderr) {
+					console.log(stdout.blue);
+				});
+
+				// Real time output for parallel processing:
+			} else {
+				var npmChild = exec('update -n' + params);
+				npmChild.stdout.on('data', function (data) {
+					if (data.indexOf("For") >= 0) {
+						console.log(data.red);
+					} else if (data.indexOf("Done") >= 0) {
+						console.log(data.green);
+					} else {
+						console.log(data.magenta);
+					}
+				});
+
+				var bowerChild = exec('update -b' + params);
+				bowerChild.stdout.on('data', function (data) {
+					if (data.indexOf("For") >= 0) {
+						console.log(data.red);
+					} else if (data.indexOf("Done") >= 0) {
+						console.log(data.green);
+					} else {
+						console.log(data.blue);
+					}
+				});
+			}
+		}
+
+		// Sequential processing:
+		else {
+			var promises = _.concat(npmPromises, bowerPromises);
+			self.seq(promises).then(function (res) {
+				console.log('Done.'.green);
+			});
+		}
 	}
 };
 
