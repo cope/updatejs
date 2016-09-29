@@ -21,7 +21,7 @@
  *
  * -P, --parallel    Perform npm and bower calls in parallel, not consecutively
  *                   WARNING: The output will happen in real time, all mixed up.
- * -I, --instant     Instant output for the parallel execution
+ * -f, --buffered    Buffered output for the parallel execution
  *                   WARNING: The output will happen only at the end:
  *                   - once for all npm calls, and once for all bower calls.
  *
@@ -39,7 +39,7 @@ var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 
 commander
-.version('0.2.0')
+.version('0.2.1')
 .option('', '')
 .option('-n, --npm', 'Perform *only* npm calls', false)
 .option('-b, --bower', 'Perform *only* bower calls', false)
@@ -53,7 +53,7 @@ commander
 .option('', '')
 .option('-P, --parallel', 'Perform npm and bower calls in parallel, not consecutively', false)
 .option('', 'WARNING: The output will happen in real time, all mixed up.')
-.option('-I, --instant', 'Instant output for the parallel execution', false)
+.option('-f, --buffered', 'Buffered output for the parallel execution', false)
 .option('', 'WARNING: The output will happen only at the end:')
 .option('', '- once for all npm calls, and once for all bower calls.')
 .option('', '')
@@ -68,7 +68,7 @@ commander.update = true === commander.update;
 commander.prune = true === commander.prune;
 commander.recursive = true === commander.recursive;
 commander.parallel = true === commander.parallel;
-commander.instant = true === commander.instant;
+commander.buffered = true === commander.buffered;
 
 // If just `update` is executed, run both npm and bower, and run all three iup calls
 if (!commander.npm && !commander.bower) {
@@ -90,7 +90,7 @@ if (commander.parallel && (commander.npm !== commander.bower)) {
 // console.log("commander.prune: " + commander.prune);
 // console.log("commander.recursive: " + commander.recursive);
 // console.log("commander.parallel: " + commander.parallel);
-// console.log("commander.instant: " + commander.instant);
+// console.log("commander.buffered: " + commander.buffered);
 
 var update = {
 
@@ -226,8 +226,8 @@ var update = {
 		if (commander.parallel) {
 			var params = this.params();
 
-			// Instant output for parallel processing:
-			if (commander.instant) {
+			// Buffered output for parallel processing:
+			if (commander.buffered) {
 				console.log("Running all npm calls...".magenta);
 				exec('update -n' + params, function (error, stdout, stderr) {
 					console.log(stdout.magenta);
@@ -238,7 +238,7 @@ var update = {
 					console.log(stdout.blue);
 				});
 
-				// Real time output for parallel processing:
+				// Real time, non-buffered output for parallel processing:
 			} else {
 				var npmChild = exec('update -n' + params);
 				npmChild.stdout.on('data', function (data) {
