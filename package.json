@@ -1,6 +1,6 @@
 {
   "name": "updatejs",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Install/Update/Prune NPM and Bower",
   "homepage": "https://github.com/cope/updatejs#readme",
   "author": "Predrag Stojadinovic <predrag@stojadinovic.net>",
@@ -21,8 +21,8 @@
   ],
   "preferGlobal": true,
   "bin": {
-	"update": "update.js",
-	"updatejs": "update.js"
+	"update": "updatejs.js",
+	"updatejs": "updatejs.js"
   },
   "dependencies": {
     "bluebird": "^3.4.6",
