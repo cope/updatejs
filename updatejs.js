@@ -92,7 +92,7 @@ if (commander.parallel && (commander.npm !== commander.bower)) {
 // console.log("commander.parallel: " + commander.parallel);
 // console.log("commander.buffered: " + commander.buffered);
 
-var update = {
+var updatejs = {
 
 	check: function (path, file) {
 		try {
@@ -229,18 +229,18 @@ var update = {
 			// Buffered output for parallel processing:
 			if (commander.buffered) {
 				console.log("Running all npm calls...".magenta);
-				exec('update -n' + params, function (error, stdout, stderr) {
+				exec('updatejs -n' + params, function (error, stdout, stderr) {
 					console.log(stdout.magenta);
 				});
 
 				console.log("Running all bower calls...".blue);
-				exec('update -b' + params, function (error, stdout, stderr) {
+				exec('updatejs -b' + params, function (error, stdout, stderr) {
 					console.log(stdout.blue);
 				});
 
 				// Real time, non-buffered output for parallel processing:
 			} else {
-				var npmChild = exec('update -n' + params);
+				var npmChild = exec('updatejs -n' + params);
 				npmChild.stdout.on('data', function (data) {
 					if (data.indexOf("For") >= 0) {
 						console.log(data.red);
@@ -251,7 +251,7 @@ var update = {
 					}
 				});
 
-				var bowerChild = exec('update -b' + params);
+				var bowerChild = exec('updatejs -b' + params);
 				bowerChild.stdout.on('data', function (data) {
 					if (data.indexOf("For") >= 0) {
 						console.log(data.red);
@@ -274,4 +274,4 @@ var update = {
 	}
 };
 
-update.all();
+updatejs.all();
