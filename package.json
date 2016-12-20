@@ -1,6 +1,6 @@
 {
   "name": "updatejs",
-  "version": "0.2.5b",
+  "version": "0.2.6",
   "description": "Install/Update/Prune NPM and Bower",
   "homepage": "https://cope.github.io/updatejs/",
   "author": "Predrag Stojadinovic <predrag@stojadinovic.net>",
