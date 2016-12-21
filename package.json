@@ -1,23 +1,23 @@
 {
   "name": "updatejs",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Install/Update/Prune NPM and Bower",
   "homepage": "https://cope.github.io/updatejs/",
   "author": "Predrag Stojadinovic <predrag@stojadinovic.net>",
   "license": "UNLICENSED",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cope/updatejs.git"
+	"type": "git",
+	"url": "git+https://github.com/cope/updatejs.git"
   },
   "bugs": {
-    "url": "https://github.com/cope/updatejs/issues"
+	"url": "https://github.com/cope/updatejs/issues"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+	"test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "npm",
-    "bower"
+	"npm",
+	"bower"
   ],
   "preferGlobal": true,
   "bin": {
@@ -25,10 +25,10 @@
 	"update": "updatejs.js"
   },
   "dependencies": {
-    "bluebird": "^3.4.6",
-    "colors": "^1.1.2",
-    "commander": "^2.9.0",
-    "lodash": "^4.16.2",
-    "node-cmd": "^1.1.1"
+	"bluebird": "^3.4.6",
+	"colors": "^1.1.2",
+	"commander": "^2.9.0",
+	"lodash": "^4.16.2",
+	"node-cmd": "^1.1.1"
   }
 }

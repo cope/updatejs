@@ -39,7 +39,7 @@ var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 
 commander
-	.version('0.2.6')
+	.version('0.2.7')
 	.option('', '')
 	.option('-n, --npm', 'Perform *only* npm calls', false)
 	.option('-b, --bower', 'Perform *only* bower calls', false)
