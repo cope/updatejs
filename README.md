@@ -1,5 +1,7 @@
 # updatejs
 
+[![Join the chat at https://gitter.im/cope/updatejs](https://badges.gitter.im/cope/updatejs.svg)](https://gitter.im/cope/updatejs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Shortcut for running npm and bower install/update/prune calls.
 
 The script will check for package.json and bower.json before running install/update/prune calls.
