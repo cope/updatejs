@@ -1,34 +1,39 @@
 {
-  "name": "updatejs",
-  "version": "0.2.7",
-  "description": "Install/Update/Prune NPM and Bower",
-  "homepage": "https://cope.github.io/updatejs/",
-  "author": "Predrag Stojadinovic <predrag@stojadinovic.net>",
-  "license": "UNLICENSED",
-  "repository": {
-	"type": "git",
-	"url": "git+https://github.com/cope/updatejs.git"
-  },
-  "bugs": {
-	"url": "https://github.com/cope/updatejs/issues"
-  },
-  "scripts": {
-	"test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-	"npm",
-	"bower"
-  ],
-  "preferGlobal": true,
-  "bin": {
-	"updatejs": "updatejs.js",
-	"update": "updatejs.js"
-  },
-  "dependencies": {
-	"bluebird": "^3.4.6",
-	"colors": "^1.1.2",
-	"commander": "^2.9.0",
-	"lodash": "^4.16.2",
-	"node-cmd": "^1.1.1"
-  }
+	"name": "updatejs",
+	"version": "0.2.8",
+	"description": "Install/Update/Prune NPM and Bower",
+	"homepage": "https://cope.github.io/updatejs/",
+	"author": "Predrag Stojadinovic <predrag@stojadinovic.net>",
+	"license": "UNLICENSED",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cope/updatejs.git"
+	},
+	"bugs": {
+		"url": "https://github.com/cope/updatejs/issues"
+	},
+	"scripts": {
+		"test": "nyc --reporter=html mocha"
+	},
+	"keywords": [
+		"npm",
+		"bower"
+	],
+	"preferGlobal": true,
+	"bin": {
+		"updatejs": "index.js",
+		"update": "index.js"
+	},
+	"dependencies": {
+		"bluebird": "^3.5.1",
+		"colors": "^1.1.2",
+		"commander": "^2.9.0",
+		"lodash": "^4.16.2",
+		"node-cmd": "^1.1.1"
+	},
+	"devDependencies": {
+		"chai": "^4.1.2",
+		"mocha": "^5.0.0",
+		"nyc": "^11.4.1"
+	}
 }
