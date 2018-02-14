@@ -29,17 +29,10 @@
  *                   Performs all npm and bower install/update/prune calls in local project
  */
 
-var fs = require("fs");
-var _ = require("lodash");
-var cmd = require('node-cmd');
-var colors = require('colors');
-var Promise = require('bluebird');
 var commander = require('commander');
-var exec = require('child_process').exec;
-var spawn = require('child_process').spawn;
 
 commander
-	.version('0.3.0')
+	.version('0.3.1')
 	.option('', '')
 	.option('-n, --npm', 'Perform *only* npm calls', false)
 	.option('-b, --bower', 'Perform *only* bower calls', false)
