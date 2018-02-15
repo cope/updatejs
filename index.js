@@ -32,7 +32,7 @@
 var commander = require('commander');
 
 commander
-	.version('0.3.1')
+	.version('0.3.2')
 	.option('', '')
 	.option('-n, --npm', 'Perform *only* npm calls', false)
 	.option('-b, --bower', 'Perform *only* bower calls', false)
