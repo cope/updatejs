@@ -1,6 +1,6 @@
 {
 	"name": "updatejs",
-	"version": "0.3.2",
+	"version": "0.3.3",
 	"description": "Install/Update/Prune NPM and Bower",
 	"homepage": "https://cope.github.io/updatejs/",
 	"author": "Predrag Stojadinovic <predrag@stojadinovic.net>",
@@ -13,7 +13,8 @@
 		"url": "https://github.com/cope/updatejs/issues"
 	},
 	"scripts": {
-		"test": "nyc --reporter=html mocha"
+		"test": "nyc --reporter=html mocha",
+		"analyze": "sonarjs -e .sonarlint/**,node_modules/**,coverage/**,.nyc_output/**"
 	},
 	"keywords": [
 		"npm",
@@ -34,6 +35,7 @@
 	"devDependencies": {
 		"chai": "^4.1.2",
 		"mocha": "^5.0.0",
-		"nyc": "^11.4.1"
+		"nyc": "^11.4.1",
+		"sonarjs": "^1.0.0"
 	}
 }
