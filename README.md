@@ -1,7 +1,8 @@
 # updatejs
-[![Build Status](https://travis-ci.org/cope/updatejs.svg?branch=master)](https://travis-ci.org/cope/updatejs)
+[![build status](https://travis-ci.org/cope/updatejs.svg?branch=master)](https://travis-ci.org/cope/updatejs)
 [![coverage](https://coveralls.io/repos/github/cope/updatejs/badge.svg?branch=master)](https://coveralls.io/github/cope/updatejs?branch=master)
 [![npm](https://img.shields.io/npm/dt/updatejs.svg)](https://www.npmjs.com/package/updatejs)
+[![dependencies](https://david-dm.org/cope/updatejs.svg)](https://www.npmjs.com/package/updatejs)
 
 [![Join the chat at https://gitter.im/cope/updatejs](https://badges.gitter.im/cope/updatejs.svg)](https://gitter.im/cope/updatejs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
