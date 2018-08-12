@@ -1,8 +1,9 @@
 # updatejs
-[![build status](https://travis-ci.org/cope/updatejs.svg?branch=master)](https://travis-ci.org/cope/updatejs)
-[![coverage](https://coveralls.io/repos/github/cope/updatejs/badge.svg?branch=master)](https://coveralls.io/github/cope/updatejs?branch=master)
-[![npm](https://img.shields.io/npm/dt/updatejs.svg)](https://www.npmjs.com/package/updatejs)
+[![build status](https://img.shields.io/travis/cope/updatejs.svg?branch=master)](https://travis-ci.org/cope/updatejs)
+[![codacy](https://img.shields.io/codacy/grade/03e75e616d4a475c8be2706bb4397616.svg)](https://www.codacy.com/project/cope/updatejs/dashboard)
+[![coverage](https://img.shields.io/coveralls/github/cope/updatejs/master.svg)](https://coveralls.io/github/cope/updatejs?branch=master)
 [![dependencies](https://david-dm.org/cope/updatejs.svg)](https://www.npmjs.com/package/updatejs)
+[![npm](https://img.shields.io/npm/dt/updatejs.svg)](https://www.npmjs.com/package/updatejs)
 
 [![Join the chat at https://gitter.im/cope/updatejs](https://badges.gitter.im/cope/updatejs.svg)](https://gitter.im/cope/updatejs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
