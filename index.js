@@ -64,12 +64,10 @@ commander.parallel = true === commander.parallel;
 commander.buffered = true === commander.buffered;
 
 // If just `update` is executed, run both npm and bower, and run all three iup calls
-if (!commander.npm && !commander.bower) {
-	commander.npm = commander.bower = true;
-}
-if (!commander.install && !commander.update && !commander.prune) {
-	commander.install = commander.update = commander.prune = true;
-}
+if (!commander.npm && !commander.bower) commander.npm = commander.bower = true;
+
+if (!commander.install && !commander.update && !commander.prune) commander.install = commander.update = commander.prune = true;
+
 if (commander.parallel && (commander.npm !== commander.bower)) {
 	console.log(("Ignoring -P (--parallel) because you only selected " + (commander.npm ? "npm" : "bower") + ".").red);
 	commander.parallel = false;
