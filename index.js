@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-'use strict';
+"use strict";
 
 /**
  * @author: Predrag Stojadinovic <predrag@stojadinovic.net>
@@ -29,29 +29,29 @@
  *                   Performs all npm and bower install/update/prune calls in local project
  */
 
-var commander = require('commander');
+var commander = require("commander");
 
 commander
-	.version('0.3.2')
-	.option('', '')
-	.option('-n, --npm', 'Perform *only* npm calls', false)
-	.option('-b, --bower', 'Perform *only* bower calls', false)
-	.option('', '')
-	.option('-i, --install', 'Perform *only* install calls', false)
-	.option('-u, --update', 'Perform *only* update calls', false)
-	.option('-p, --prune', 'Perform *only* prune calls', false)
-	.option('', '')
-	.option('-r, --recursive', 'Perform calls recursively in all subfolders', false)
-	.option('', 'WARNING: The more projects you have, the longer it will take.')
-	.option('', '')
-	.option('-P, --parallel', 'Perform npm and bower calls in parallel, not consecutively', false)
-	.option('', 'WARNING: The output will happen in real time, all mixed up.')
-	.option('-f, --buffered', 'Buffered output for the parallel execution', false)
-	.option('', 'WARNING: The output will happen only at the end:')
-	.option('', '- once for all npm calls, and once for all bower calls.')
-	.option('', '')
-	.option('<no params>', 'Same as using -nbiup:')
-	.option('', 'Performs all npm and bower install/update/prune calls in local project')
+	.version("0.3.2")
+	.option("", "")
+	.option("-n, --npm", "Perform *only* npm calls", false)
+	.option("-b, --bower", "Perform *only* bower calls", false)
+	.option("", "")
+	.option("-i, --install", "Perform *only* install calls", false)
+	.option("-u, --update", "Perform *only* update calls", false)
+	.option("-p, --prune", "Perform *only* prune calls", false)
+	.option("", "")
+	.option("-r, --recursive", "Perform calls recursively in all subfolders", false)
+	.option("", "WARNING: The more projects you have, the longer it will take.")
+	.option("", "")
+	.option("-P, --parallel", "Perform npm and bower calls in parallel, not consecutively", false)
+	.option("", "WARNING: The output will happen in real time, all mixed up.")
+	.option("-f, --buffered", "Buffered output for the parallel execution", false)
+	.option("", "WARNING: The output will happen only at the end:")
+	.option("", "- once for all npm calls, and once for all bower calls.")
+	.option("", "")
+	.option("<no params>", "Same as using -nbiup:")
+	.option("", "Performs all npm and bower install/update/prune calls in local project")
 	.parse(process.argv);
 
 commander.npm = true === commander.npm;
@@ -85,5 +85,5 @@ if (commander.parallel && (commander.npm !== commander.bower)) {
 // console.log("commander.parallel: " + commander.parallel);
 // console.log("commander.buffered: " + commander.buffered);
 
-var updatejs = require('./lib/updatejs');
+var updatejs = require("./lib/updatejs");
 updatejs.update(commander);
