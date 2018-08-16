@@ -1,7 +1,7 @@
-const _ = require("lodash");
-const expect = require("chai").expect;
+var _ = require("lodash");
+var expect = require("chai").expect;
 
-const updatejs = require("../lib/updatejs");
+var updatejs = require("../lib/updatejs");
 
 describe("updatejs tests", function () {
 	it("updatejs should exist", function () {
