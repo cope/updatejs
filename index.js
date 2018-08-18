@@ -29,7 +29,7 @@
  *                   Performs all npm and bower install/update/prune calls in local project
  */
 
-var commander = require("commander");
+const commander = require("commander");
 
 commander
 	.version("0.3.2")
@@ -83,5 +83,4 @@ if (commander.parallel && (commander.npm !== commander.bower)) {
 // console.log("commander.parallel: " + commander.parallel);
 // console.log("commander.buffered: " + commander.buffered);
 
-var updatejs = require("./lib/updatejs");
-updatejs.update(commander);
+require("./lib/updatejs").update(commander);
