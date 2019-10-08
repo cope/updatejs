@@ -5,7 +5,7 @@
 [![dependencies](https://david-dm.org/cope/updatejs.svg)](https://www.npmjs.com/package/updatejs)
 [![npm](https://img.shields.io/npm/dt/updatejs.svg)](https://www.npmjs.com/package/updatejs)
 
-[![Join the chat at https://gitter.im/cope/updatejs](https://badges.gitter.im/cope/updatejs.svg)](https://gitter.im/cope/updatejs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/cope/updatejs](https://badges.gitter.im/cope/updatejs.svg)](https://gitter.im/cope/updatejs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Greenkeeper badge](https://badges.greenkeeper.io/cope/updatejs.svg)](https://greenkeeper.io/)
 
 Shortcut for running npm and bower install/update/prune calls.
 
